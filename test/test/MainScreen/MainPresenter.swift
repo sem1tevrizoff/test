@@ -19,11 +19,11 @@ class MainPresenter {
     var categoryModel = CategoryManager.allCategory
     
     func setupNetworking() {
-        networkingManager.request(endpoint: BeerAPI.link) { (result: Result<[BeerModel], NetworkingError>) in
+        networkingManager.request(endpoint: BeerAPI.link) { [weak self] (result: Result<[BeerModel], NetworkingError>) in
             switch result {
             case .success(let result):
-                self.beerModel = result
-                self.viewDelegate?.updateTableView()
+                self?.beerModel = result
+                self?.viewDelegate?.updateTableView()
             case .failure(let failure):
                 print(failure)
             }
